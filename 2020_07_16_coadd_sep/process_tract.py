@@ -35,3 +35,7 @@ def main(tract, seed):
 
     with joblib.Parallel(backend="loky", n_jobs=8, verbose=100) as par:
         par(jobs)
+
+
+if __name__ == "__main__":
+    main()
