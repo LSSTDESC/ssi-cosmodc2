@@ -41,7 +41,7 @@ DC2_TRUTH_CAT = (
     "cosmoDC2_v1.1.4_small_fsi_catalog.fits"
 )
 
-OUTPUT_BUTLER = "butler_coadd_sep"
+OUTPUT_BUTLER = os.path.expandvars(os.path.join("$SCRATCH", "butler_coadd_sep"))
 OUTPUT_DIR = "ssi_cats"
 
 
@@ -143,7 +143,7 @@ filter=r -c fakeType=%s \
 
     # from here we have images with the sources on disk
     # we are going to read them back in, make a few catalogs, and output the data
-    output_butler = Butler("./" + OUTPUT_BUTLER)
+    output_butler = Butler(OUTPUT_BUTLER)
     bbox = pi.getOuterBBox()
     coaddId = {
         'tract': ti.getId(),
