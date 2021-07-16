@@ -116,7 +116,11 @@ def main(tract, patch, seed):
     msk = pi.getOuterBBox().contains(grid["x"], grid["y"])
     tract_sources = tract_sources[msk]
 
-    ssi_src_file = "ssi_tract%d_patch%d.fits" % (tract, patch)
+    subprocess.run("mkdir -p " + OUTPUT_DIR, shell=True, check=True)
+
+    ssi_src_file = os.path.join(
+        OUTPUT_DIR, "ssi_input_tract%d_patch%d.fits" % (tract, patch)
+    )
     fitsio.write(
         ssi_src_file,
         tract_sources,
@@ -176,7 +180,6 @@ filter=r -c fakeType=%s \
     ssi_det_cat["match_flag"] = match_flag
     ssi_det_cat["match_index"] = match_index
 
-    subprocess.run("mkdir -p " + OUTPUT_DIR, shell=True, check=True)
     output_fname = "ssi_data_tract%d_patch%d.fits" % (tract, patch)
     with fitsio.FITS(
         os.path.join(OUTPUT_DIR, output_fname), "rw", clobber=True
